@@ -313,7 +313,8 @@ public class Field {
     	if(this.getCrumbQuantityAt(l)>0){
     		this.crumbsQuant[l.getRow()][l.getCol()]--;
     	}
-    }
+	}
+	
     public void dropCrumbs(Location l, int q) {
     	if(this.getCrumbQuantityAt(l)<10-q){
     		this.crumbsQuant[l.getRow()][l.getCol()] += q; 
