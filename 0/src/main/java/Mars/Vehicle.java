@@ -133,12 +133,16 @@ class Vehicle extends Entity{
 	public Location getLocationUpGradient(Field f) {
 		ArrayList<Location> freeSpaces = f.getAllfreeAdjacentLocations(this.getLocation());
 
+		int highestSignal = f.getSignalStrength(this.getLocation());
+		Location highestSignalLocation = this.getLocation();
+
 		for (Location currentSpace : freeSpaces) {
-			if (f.getSignalStrength(currentSpace) > f.getSignalStrength(this.getLocation())) {
-				return currentSpace;
+			if (f.getSignalStrength(currentSpace) > highestSignal) {
+				highestSignal = f.getSignalStrength(currentSpace);
+				highestSignalLocation = currentSpace;
 			}
 		}
-		return null;
+		return highestSignalLocation;
 	}
 
 	/**
@@ -159,17 +163,20 @@ class Vehicle extends Entity{
 	 * 
 	 * @param f Field
 	 * @return A valid Location to moveto whith a higher signal strength.
-	 * 	If no location is avalible null is returned.
 	 */
 	public Location getLocationDownGradient(Field f) {
 		ArrayList<Location> freeSpaces = f.getAllfreeAdjacentLocations(this.getLocation());
 
+		int lowestSignal = f.getSignalStrength(this.getLocation());
+		Location lowestSignalLocation = this.getLocation();
+
 		for (Location currentSpace : freeSpaces) {
-			if (f.getSignalStrength(currentSpace) < f.getSignalStrength(this.getLocation())) {
-				return currentSpace;
+			if (f.getSignalStrength(currentSpace) < lowestSignal) {
+				lowestSignal = f.getSignalStrength(currentSpace);
+				lowestSignalLocation = currentSpace;
 			}
 		}
-		return null;
+		return lowestSignalLocation;
 	}
 
 	/**
