@@ -180,12 +180,47 @@ class Vehicle extends Entity{
 	}
 
 	/**
+	 * Returns a free agacent slot which has a lower signal strength to the
+	 * Mothership. This method also senses crumbs and follows the trail towards
+	 * rocks.
+	 * 
+	 * A weight is given to the signal and noOfCrumbs. A rating is calculated for
+	 * each adjacent free space, by:
+	 * 	rating = (sw * signalStrength) - (cw * noOfCrumbs)
+	 * 
+	 * This means that chooses the next position depending on the number of crumbs
+	 * and the distance from the Mothership.
+	 * 
+	 * @param f Field
+	 * @return A valid Location to moveto whith a higher signal strength.
+	 */
+	public Location getLocationDownGradientCrumbs(Field f) {
+		int signalWeight = 1;
+		int crumbsWeight = 10;
+		ArrayList<Location> freeSpaces = f.getAllfreeAdjacentLocations(this.getLocation());
+
+		int bestRating = (signalWeight * f.getSignalStrength(this.getLocation())) -
+		 (crumbsWeight * f.getCrumbQuantityAt(this.getLocation()));
+		Location bestRatingLocation = this.getLocation();
+
+		for (Location currentSpace : freeSpaces) {
+			int currentRating = (signalWeight * f.getSignalStrength(currentSpace))
+			 - (crumbsWeight * f.getCrumbQuantityAt(currentSpace));
+			if (currentRating < bestRating) {
+				bestRating = currentRating;
+				bestRatingLocation = currentSpace;
+			}
+		}
+		return bestRatingLocation;
+	}
+
+	/**
 	 * Moves the robot to an agacent space with lower signal strength.
 	 * 
 	 * @param f Field
 	 */
 	public void moveDownGradient(Field f) {
-		Location nextLocation = this.getLocationDownGradient(f);
+		Location nextLocation = this.getLocationDownGradientCrumbs(f);
 			if (nextLocation != null) {
 				this.updateLocation(f, nextLocation);;
 			}

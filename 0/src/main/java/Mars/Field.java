@@ -275,6 +275,9 @@ public class Field {
 		return locations.iterator();
 	}
 	
+	/**
+	 * Reduces the number of crumbs in spaces containing crumbs by 1.
+	 */
 	public void reduceCrumbs() {
 		for(int row = 0; row < depth; row++) {
 			for(int col = 0; col < width; col++) {
@@ -308,13 +311,26 @@ public class Field {
     public int getCrumbQuantityAt(Location l) {
     	return this.crumbsQuant[l.getRow()][l.getCol()];
     }
-    
+	
+	/**
+	 * Simulates picking a crumb from a location, by reducing the number of crumbs
+	 * in that location
+	 * 
+	 * @param l The location to pick up the crumb from.
+	 */
     public void pickUpACrumb(Location l) {
     	if(this.getCrumbQuantityAt(l)>0){
     		this.crumbsQuant[l.getRow()][l.getCol()]--;
     	}
 	}
 	
+	/**
+	 * Drops a number of crumbs in a location, by increasing the number of crumbs
+	 * at the location bya the quantity
+	 * 
+	 * @param l The location to drop the crumb at.
+	 * @param q The quantity of crumbs to drop.
+	 */
     public void dropCrumbs(Location l, int q) {
     	if(this.getCrumbQuantityAt(l)<10-q){
     		this.crumbsQuant[l.getRow()][l.getCol()] += q; 

@@ -107,6 +107,11 @@ public class Simulator
        		tempField.clearLocation(r.getLocation());
        		rocks.remove(r);
        }
+
+       // If a crumb has been there for 1000 steps remove it
+       if (step % 1000 == 0 ) {
+           tempField.reduceCrumbs();
+       }
                  
       field = tempField;
       view.showStatus(step, field);
@@ -203,10 +208,8 @@ public class Simulator
     }
     
     public static void main(String[] args){
-        // System.out.println("Hello World");
-    	Simulator s = new Simulator();
+    	Simulator s = new Simulator(50, 50);
 		s.randomLandMothership();
-		s.simulate(11000);
-		
+		s.simulate(1000);
     }
 }
