@@ -65,6 +65,7 @@ class Vehicle extends Entity{
 			f.pickUpACrumb(this.getLocation());
 			// Travel down gradient
 			this.moveDownGradient(f);
+			return;
 		}
 
 		// if true then move randomly (4)
