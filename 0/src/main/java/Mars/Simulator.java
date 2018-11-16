@@ -24,6 +24,9 @@ public class Simulator
     private int step;
     // A graphical view of the simulation.
     private SimulatorView view;
+
+    private int noOfRocksTotal;
+    private int rocksToCollect;
     
     /**
      * Construct a simulation field with default size.
@@ -31,6 +34,7 @@ public class Simulator
     public Simulator()
     {
         this(ModelConstants.DEFAULT_DEPTH, ModelConstants.DEFAULT_WIDTH);
+        noOfRocksTotal = 0;
     }
     
     /**
@@ -40,6 +44,7 @@ public class Simulator
      */
     public Simulator(int depth, int width)
     {
+        noOfRocksTotal = 0;
         if(width <= 0 || depth <= 0) {
             System.out.println("The dimensions must be greater than zero.");
             System.out.println("Using default values.");
@@ -103,7 +108,8 @@ public class Simulator
        }
    		
        for(Iterator<Rock> it = rocksToRemove.iterator(); it.hasNext(); ) {
-       		Rock r = it.next();
+            noOfRocksTotal++;
+       	    Rock r = it.next();
        		tempField.clearLocation(r.getLocation());
        		rocks.remove(r);
        }
@@ -115,6 +121,11 @@ public class Simulator
                  
       field = tempField;
       view.showStatus(step, field);
+
+      if (noOfRocksTotal == rocksToCollect) {
+          System.out.println("Number of steps: "+ step);
+          noOfRocksTotal = 0;
+      }
     }
         
     /**
@@ -149,7 +160,9 @@ public class Simulator
             field.place(r,location);
             rocks.add(r);    		
     	}
-    	
+        
+        rocksToCollect = rockLocations.length;
+        System.out.println("Number of rocks: "+ rocksToCollect);
     	 		
  		double obsProb = ModelConstants.OBSTACLE_CREATION_PROBABILITY;
  		double vehProb = ModelConstants.OBSTACLE_CREATION_PROBABILITY + ModelConstants.VEHICLE_CREATION_PROBABILITY;
