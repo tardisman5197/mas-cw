@@ -221,10 +221,11 @@ class Vehicle extends Entity{
 	 * @param f Field
 	 */
 	public void moveDownGradient(Field f) {
+		// Location nextLocation = this.getLocationDownGradient(f);
 		Location nextLocation = this.getLocationDownGradientCrumbs(f);
-			if (nextLocation != null) {
-				this.updateLocation(f, nextLocation);;
-			}
+		if (nextLocation != null) {
+			this.updateLocation(f, nextLocation);;
+		}
 	}
 
 	/**
