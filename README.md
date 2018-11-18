@@ -11,3 +11,13 @@ back to Earth. There is no detailed map of the planet available, although it is 
 terrain is full of obstacles (hills, valleys, etc.) which prevent the vehicles from exchanging any
 communication.” [from “An Introduction to MultiAgent Systems” by M. Wooldridge, John
 Wiley & Sons, 2009.]
+
+## Implementation
+
+The implementation of the agent can be found in the folder with path:
+
+  ```MASCW/0/src/main/java/Mars/```
+ 
+The files that contain edited code are:
+ * ```Simulator.java```
+ * ```Vehicle.java```
